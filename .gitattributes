@@ -1,0 +1,3 @@
+*.sh text eol=lf
+*.lua text eol=lf
+src/function/scf_bootstrap text eol=lf

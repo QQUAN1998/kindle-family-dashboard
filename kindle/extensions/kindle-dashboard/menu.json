@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "name": "打开家庭看板", "priority": 10, "action": "bin/start.sh" },
+    { "name": "立即刷新", "priority": 20, "action": "bin/refresh.sh" },
+    { "name": "返回书架", "priority": 30, "action": "bin/stop.sh" }
+  ]
+}

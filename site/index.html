@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <meta name="theme-color" content="#f5f4ef" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Kindle 家庭看板</title>
+    <link rel="stylesheet" href="styles.css?v=25" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="product-kicker">Kindle 家庭看板</p>
+        <h1>家庭看板</h1>
+      </div>
+      <div class="sync-state" role="status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="cloudStatus">连接中</span>
+      </div>
+    </header>
+
+    <nav class="view-switch" aria-label="移动端视图切换">
+      <button class="view-switch__button is-active" data-view="editor" type="button">编辑</button>
+      <button class="view-switch__button" data-view="preview" type="button">Kindle 预览</button>
+    </nav>
+
+    <main class="workspace">
+      <section class="editor-pane" aria-labelledby="editor-title">
+        <div class="pane-heading">
+          <div>
+            <p class="section-label">手机端</p>
+            <h2 id="editor-title">看板设置</h2>
+          </div>
+          <button class="button button--secondary" id="resetButton" type="button">重新同步</button>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section__heading">
+            <h3>家庭名称</h3>
+            <span>最多 15 个字符</span>
+          </div>
+          <label class="field">
+            <span>显示名称</span>
+            <input id="familyNameInput" maxlength="15" value="我的家" />
+          </label>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section__heading">
+            <h3>天气</h3>
+            <span>全家共用</span>
+          </div>
+          <div class="current-location" aria-live="polite">
+            <span>当前城市</span>
+            <strong id="currentCityName">杭州</strong>
+            <small id="currentCityMeta">浙江 · 中国</small>
+          </div>
+          <div class="popular-cities" id="popularCities" aria-label="常用城市">
+            <button type="button" data-city="广州">广州</button>
+            <button type="button" data-city="杭州">杭州</button>
+            <button type="button" data-city="上海">上海</button>
+            <button type="button" data-city="北京">北京</button>
+            <button type="button" data-city="深圳">深圳</button>
+            <button type="button" data-city="成都">成都</button>
+            <button type="button" data-city="西安">西安</button>
+            <button type="button" data-city="南京">南京</button>
+          </div>
+          <form class="city-search" id="citySearchForm" role="search">
+            <label class="field" for="citySearchInput">
+              <span>其他城市</span>
+              <input id="citySearchInput" type="search" autocomplete="off" maxlength="40" placeholder="城市名称" />
+            </label>
+            <button class="button button--secondary" type="submit">搜索</button>
+          </form>
+          <p class="location-search-status" id="locationSearchStatus" role="status"></p>
+          <div class="location-results" id="locationResults" role="listbox"></div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section__heading">
+            <h3>小黑板</h3>
+            <span>全家共用 · 仅 1 条</span>
+          </div>
+          <form class="blackboard-editor" id="blackboardForm">
+            <label class="field" for="blackboardInput">
+              <span>发布内容</span>
+              <textarea id="blackboardInput" maxlength="40" rows="3" placeholder="例如：周六下午三点出发，记得带相机。" required></textarea>
+            </label>
+            <div class="blackboard-editor__footer">
+              <time id="blackboardPublishedAt"></time>
+              <button class="button button--primary" type="submit">发布小黑板</button>
+            </div>
+          </form>
+          <p class="settings-note">再次发布会覆盖上一条内容，并更新发布日期。</p>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section__heading">
+            <h3>倒计时</h3>
+            <button class="button button--small" id="addCountdownButton" type="button">＋ 添加</button>
+          </div>
+          <div class="countdown-editor-list" id="countdownEditorList"></div>
+          <p class="settings-note" id="countdownLimitNote">最多显示 6 个倒计时。</p>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section__heading">
+            <h3>自动亮度</h3>
+            <label class="toggle-control">
+              <input id="brightnessEnabled" type="checkbox" checked />
+              <span>启用</span>
+            </label>
+          </div>
+          <div class="brightness-grid">
+            <div class="brightness-period">
+              <label class="field field--compact">
+                <span>白天开始</span>
+                <input id="dayStart" type="time" value="07:00" />
+              </label>
+              <label class="range-field">
+                <span>白天亮度 <output id="dayBrightnessOutput">1</output></span>
+                <input id="dayBrightness" type="range" min="0" max="24" value="1" />
+              </label>
+            </div>
+            <div class="brightness-period">
+              <label class="field field--compact">
+                <span>夜间开始</span>
+                <input id="nightStart" type="time" value="18:30" />
+              </label>
+              <label class="range-field">
+                <span>夜间亮度 <output id="nightBrightnessOutput">10</output></span>
+                <input id="nightBrightness" type="range" min="0" max="24" value="10" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-pane" aria-labelledby="preview-title">
+        <div class="pane-heading preview-heading">
+          <div>
+            <p class="section-label">600 × 800</p>
+            <h2 id="preview-title">Kindle 实机比例</h2>
+          </div>
+          <p>点击屏幕按钮可预览状态</p>
+        </div>
+
+        <div class="device-stage">
+          <div class="kindle-device">
+            <div class="kindle-screen-viewport" id="kindleViewport">
+              <article class="kindle-screen" id="kindleScreen" aria-label="Kindle 看板预览">
+                <header class="eink-header">
+                  <div>
+                    <p class="eink-date" id="previewDate"></p>
+                    <p class="eink-family-name" id="previewFamilyName"></p>
+                  </div>
+                  <span class="eink-doodle eink-doodle--cat eink-header__doodle" aria-hidden="true"></span>
+                  <div class="eink-clock" id="previewClock">09:30</div>
+                </header>
+
+                <section class="eink-weather" aria-label="天气">
+                  <div class="weather-place-row">
+                    <strong id="previewCity"></strong>
+                    <span id="weatherUpdated">09:28 更新</span>
+                  </div>
+                  <div class="weather-days" id="weatherDays"></div>
+                </section>
+
+                <section class="eink-almanac" aria-label="黄历">
+                  <div class="eink-almanac__heading">
+                    <h3>今明黄历</h3>
+                  </div>
+                  <div class="almanac-days" id="almanacDays"></div>
+                </section>
+
+                <section class="eink-blackboard" aria-label="小黑板">
+                  <div class="eink-blackboard__heading">
+                    <h3>小黑板</h3>
+                    <time id="previewBlackboardDate"></time>
+                  </div>
+                  <span class="eink-doodle eink-doodle--paws eink-blackboard__doodle" aria-hidden="true"></span>
+                  <p id="previewBlackboardContent"></p>
+                </section>
+
+                <section class="eink-countdowns" aria-label="倒计时">
+                  <div class="eink-section-heading">
+                    <h3>倒计时</h3>
+                    <span>未来值得期待的日子</span>
+                  </div>
+                  <div class="countdown-grid" id="previewCountdowns"></div>
+                </section>
+
+                <footer class="eink-footer">
+                  <button id="refreshPreviewButton" type="button">刷新</button>
+                  <p id="previewSyncState">同步于 09:30 · 电量 86%</p>
+                  <button id="exitPreviewButton" type="button">返回书架</button>
+                </footer>
+
+                <div class="eink-toast" id="einkToast" role="status" aria-live="polite"></div>
+              </article>
+            </div>
+            <div class="kindle-wordmark">kindle</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="login-dialog" id="loginDialog">
+      <form id="loginForm" method="dialog">
+        <p class="product-kicker">Kindle 家庭看板</p>
+        <h2>输入你的密码</h2>
+        <p>两位家庭成员分别使用自己的密码。</p>
+        <label class="field">
+          <span>4 位 PIN</span>
+          <span class="pin-input">
+            <input id="loginPassword" type="password" inputmode="numeric" pattern="[0-9]{4}" minlength="4" maxlength="4" autocomplete="current-password" required />
+            <button id="toggleLoginPassword" type="button" aria-pressed="false">显示</button>
+          </span>
+        </label>
+        <p class="form-error" id="loginError" role="alert"></p>
+        <button class="button button--primary" type="submit">登录</button>
+      </form>
+    </dialog>
+    <script src="config.js?v=21"></script>
+    <script src="location-picker.js?v=25"></script>
+    <script src="app.js?v=25"></script>
+  </body>
+</html>

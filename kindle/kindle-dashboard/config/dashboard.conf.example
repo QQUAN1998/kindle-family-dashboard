@@ -1,0 +1,4 @@
+# This file is generated during deployment. Keep values on one line.
+API_URL=https://example.invalid/kd-api
+DEVICE_TOKEN=replace-me
+POLL_SECONDS=300

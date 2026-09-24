@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+  <information>
+    <name>Kindle 家庭看板</name>
+    <version>1.0.0</version>
+    <author>Open source contributors</author>
+    <id>kindle-family-dashboard</id>
+  </information>
+</extension>

@@ -1,0 +1,9 @@
+{
+  "name": "Kindle 家庭看板",
+  "short_name": "家庭看板",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f4ef",
+  "theme_color": "#f5f4ef",
+  "icons": []
+}

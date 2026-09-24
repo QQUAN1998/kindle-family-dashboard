@@ -1,0 +1,16 @@
+node_modules/
+functions/kd_api/
+dist/
+work/
+.env
+.env.local
+.env.*.local
+cloudbaserc.json
+site/config.js
+kindle/kindle-dashboard/config/dashboard.conf
+*.kpkg
+*.zip
+*.pem
+*.key
+*.db
+*.log
