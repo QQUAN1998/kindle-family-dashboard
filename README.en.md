@@ -1,3 +1,29 @@
+# Give an idle Kindle a new job
+
+[简体中文](README.md) · [Visual tour](https://qquan1998.github.io/kindle-family-dashboard/) · [Report an issue](https://github.com/QQUAN1998/kindle-family-dashboard/issues)
+
+![15-second visual tour](docs/images/demo.gif)
+
+> For owners of idle, compatible jailbroken Kindles. Preview locally before configuring cloud services. Device installation is a separate step.
+
+<a id="quick-start"></a>
+
+## Quick start
+
+1. Clone the repository and install Node.js 24; run the commands below from its root.
+2. Open the local URL printed by the server and append ?demo=1.
+3. For device installation, follow the full guide with your own cloud environment and a compatible jailbroken Kindle.
+
+```text
+npm ci
+npm run check
+npx --yes serve dist/site
+```
+
+[Bilingual launch copy](docs/LAUNCH.md) · [Documentation changes](docs/UPDATES.md) · [Release checklist](docs/RELEASING.md)
+
+---
+
 # Kindle Family Dashboard
 
 [简体中文 / bilingual details](README.md) · [Full installation guide](docs/INSTALL.en.md)

@@ -1,3 +1,29 @@
+# 闲置 Kindle，变成家庭看板
+
+[English](README.en.md) · [在线图示](https://qquan1998.github.io/kindle-family-dashboard/) · [反馈问题](https://github.com/QQUAN1998/kindle-family-dashboard/issues)
+
+![15 秒功能演示](docs/images/demo.gif)
+
+> 适合有闲置、兼容越狱 Kindle 的用户。 不用先购买云服务，也能在电脑查看演示；安装到 Kindle 是单独一步。
+
+<a id="quick-start"></a>
+
+## 三步开始
+
+1. 克隆仓库并安装 Node.js 24；在仓库目录运行下面命令。
+2. 打开终端给出的本地网址，在末尾添加 ?demo=1。
+3. 连接 Kindle 前按完整安装指南配置自己的云环境；需要兼容的已越狱设备。
+
+```text
+npm ci
+npm run check
+npx --yes serve dist/site
+```
+
+[中英文推广文案](docs/LAUNCH.md) · [本次文档更新](docs/UPDATES.md) · [版本记录方法](docs/RELEASING.md)
+
+---
+
 [English](README.en.md)
 
 ![Kindle 家庭看板工作流程](docs/images/overview.png)
