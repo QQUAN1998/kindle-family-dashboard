@@ -1,3 +1,7 @@
+[English](README.en.md)
+
+![Kindle 家庭看板工作流程](docs/images/overview.png)
+
 # Kindle Family Dashboard | Kindle 家庭看板
 
 Turn a jailbroken Kindle into a useful, low-power family display, and return to the original bookshelf whenever you want. Configure it from a phone browser; the Kindle shows a 600 x 800 e-ink snapshot with a clock drawn from the device's own system time.
